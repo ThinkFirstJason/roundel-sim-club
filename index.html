@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roundel Sim Club</title>
+<meta name="description" content="Roundel Sim Club — twelve racing rigs and a full bar in Columbus, Ohio. Race nights, endurance events, private grids.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,50..150,400..900;1,50..150,400..900&family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: a race-car livery — full-bleed colour blocks cut by diagonal stripes, white roundels carry numbers, pit boards carry records */
+  :root{
+    --blue:#1538C8;
+    --ink:#0A1033;
+    --sheet:#F2F4FA;
+    --white:#FFFFFF;
+    --red:#E3392E;
+    --yellow:#FFC81F;
+    --display:"Anybody","Arial Black",sans-serif;
+    --body:"Hanken Grotesk",system-ui,sans-serif;
+    --g:clamp(16px,4vw,56px);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--sheet);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+  .wrap{padding-inline:var(--g);max-width:1400px;margin-inline:auto}
+  .x{font-family:var(--display);font-style:italic;font-weight:900;font-stretch:150%;text-transform:uppercase;letter-spacing:-.01em;line-height:.9}
+  .cond{font-family:var(--display);font-stretch:62%;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+  /* livery stripe */
+  .stripe{height:14px;background:linear-gradient(var(--red) 0 5px,var(--white) 5px 9px,var(--yellow) 9px 14px)}
+
+  header.top{background:var(--blue);color:var(--white)}
+  header.top .wrap{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .brand .rd{width:40px;height:40px;border-radius:50%;background:var(--white);color:var(--ink);display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:17px;font-stretch:80%}
+  .brand span{font-family:var(--display);font-weight:900;font-style:italic;font-stretch:130%;font-size:20px;text-transform:uppercase}
+  header.top nav{display:flex;gap:26px;margin-left:auto}
+  header.top nav a{text-decoration:none;font-family:var(--display);font-stretch:70%;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.05em}
+  header.top nav a:hover{color:var(--yellow)}
+  .cta{background:var(--yellow);color:var(--ink);text-decoration:none;font-family:var(--display);font-stretch:70%;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.05em;padding:10px 18px;border:0;cursor:pointer}
+
+  /* hero */
+  .hero{background:var(--blue);color:var(--white);position:relative;overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 7vw),0 100%)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:clamp(40px,6vw,80px) calc(7vw + 64px)}
+  .hero h1{font-size:clamp(44px,7vw,108px);text-wrap:balance}
+  .hero h1 span{color:var(--yellow)}
+  .hero p{max-width:44ch;margin-top:26px;font-size:19px;color:#DCE3FF}
+  .hero .row{display:flex;gap:16px;flex-wrap:wrap;margin-top:30px;align-items:center}
+  .ghost{color:var(--white);font-family:var(--display);font-stretch:70%;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.05em}
+  .big-roundel{aspect-ratio:1;max-width:100%;width:min(440px,100%);justify-self:end;border-radius:50%;background:var(--white);color:var(--ink);display:grid;place-items:center;position:relative;box-shadow:0 0 0 14px var(--blue),0 0 0 20px var(--red)}
+  .big-roundel b{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:clamp(150px,22vw,300px);line-height:1;letter-spacing:-.04em;margin-top:-4%}
+  .big-roundel small{position:absolute;bottom:17%;font-family:var(--display);font-stretch:62%;font-weight:700;letter-spacing:.2em;font-size:clamp(12px,1.4vw,16px);text-transform:uppercase}
+  .speedlines{position:absolute;inset:auto 0 calc(7vw + 18px) 0;height:30px;background:repeating-linear-gradient(90deg,var(--white) 0 70px,transparent 70px 110px);opacity:.14;transform:skewX(-30deg)}
+
+  /* now racing strip */
+  .now{margin-top:-46px;position:relative;z-index:2}
+  .now .bar{background:var(--ink);color:var(--white);display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:stretch}
+  .now .bar > div{padding:18px 22px;border-left:1px solid #252C55;min-width:0}
+  .now .bar .tag{background:var(--red);border:0;display:flex;align-items:center}
+  .now .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9AA3D4}
+  .now .v{font-family:var(--display);font-stretch:75%;font-weight:800;font-size:24px;text-transform:uppercase;line-height:1.1;margin-top:2px}
+
+  section{padding-block:clamp(64px,9vw,128px)}
+  .eyebrow{font-family:var(--display);font-stretch:62%;font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:28px;height:4px;background:var(--red)}
+  h2.x{font-size:clamp(38px,5.6vw,80px);margin-top:14px;text-wrap:balance}
+
+  /* entry list */
+  .entries{margin-top:44px;display:grid;gap:0;border-top:4px solid var(--ink)}
+  .entry{display:grid;grid-template-columns:96px minmax(0,1.5fr) minmax(0,1fr) auto;gap:28px;align-items:center;padding:22px 0;border-bottom:1px solid #C9CFE3}
+  .date-rd{width:84px;height:84px;border-radius:50%;background:var(--white);border:4px solid var(--ink);display:grid;place-items:center;text-align:center;line-height:1}
+  .date-rd b{display:block;font-family:var(--display);font-weight:900;font-stretch:70%;font-size:34px}
+  .date-rd small{font-family:var(--display);font-stretch:62%;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .entry.feature .date-rd{background:var(--yellow)}
+  .entry h3{font-family:var(--display);font-weight:900;font-style:italic;font-stretch:120%;font-size:clamp(22px,2.4vw,32px);text-transform:uppercase;line-height:1}
+  .entry p{color:#3D4466;font-size:16px;margin-top:6px}
+  .entry .meta{font-size:15px;color:#3D4466}
+  .entry .meta b{display:block;color:var(--ink);font-family:var(--display);font-stretch:70%;font-size:19px;text-transform:uppercase}
+  .entry a.join{font-family:var(--display);font-stretch:70%;font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:16px;text-decoration:none;border:3px solid var(--ink);padding:8px 16px;white-space:nowrap}
+  .entry a.join:hover{background:var(--ink);color:var(--white)}
+
+  /* records / pit boards */
+  .records{background:var(--ink);color:var(--white)}
+  .records .eyebrow{color:var(--yellow)}
+  .boards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:44px}
+  .board{background:#05081C;border:6px solid #2A3060;padding:18px 18px 22px;position:relative}
+  .board::before{content:"";position:absolute;top:-6px;left:50%;width:46px;height:18px;transform:translate(-50%,-100%);background:#2A3060}
+  .board .ln{font-family:var(--display);font-stretch:62%;font-weight:800;font-size:clamp(34px,3.6vw,52px);line-height:1;letter-spacing:.02em;color:var(--white);font-variant-numeric:tabular-nums}
+  .board .ln.y{color:var(--yellow)}
+  .board .ln + .ln{margin-top:6px}
+  .board .who{margin-top:16px;padding-top:12px;border-top:2px dashed #2A3060;font-size:14px;color:#9AA3D4}
+  .board .who b{color:var(--white);display:block;font-size:16px}
+
+  /* bar menu */
+  .menu-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;margin-top:44px}
+  .menu h3{font-family:var(--display);font-stretch:62%;font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:18px;padding-bottom:10px;border-bottom:4px solid var(--blue);color:var(--blue)}
+  .menu ul{list-style:none}
+  .menu li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;padding:14px 0;border-bottom:1px solid #C9CFE3}
+  .menu li b{font-family:var(--display);font-stretch:85%;font-weight:800;font-style:italic;text-transform:uppercase;font-size:20px}
+  .menu li i{border-bottom:2px dotted #A9B0CC;transform:translateY(-4px)}
+  .menu li span{font-variant-numeric:tabular-nums;font-weight:700}
+  .menu li small{grid-column:1/-1;color:#4C5375;font-size:14.5px}
+
+  /* parties */
+  .parties{background:var(--white);clip-path:polygon(0 5vw,100% 0,100% 100%,0 100%);padding-top:calc(5vw + 80px)}
+  .tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:44px;border:4px solid var(--ink)}
+  .tier{padding:28px 26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+  .tier + .tier{border-left:4px solid var(--ink)}
+  .tier.hot{background:var(--blue);color:var(--white)}
+  .tier .num{width:64px;height:64px;border-radius:50%;background:var(--white);color:var(--ink);border:4px solid var(--ink);display:grid;place-items:center;font-family:var(--display);font-weight:900;font-stretch:70%;font-size:28px}
+  .tier h3{font-family:var(--display);font-weight:900;font-style:italic;font-stretch:130%;text-transform:uppercase;font-size:28px;line-height:1}
+  .tier ul{list-style:none;display:grid;gap:8px;font-size:16px}
+  .tier ul li{padding-left:18px;position:relative}
+  .tier ul li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;background:var(--red)}
+  .tier.hot ul li::before{background:var(--yellow)}
+  .tier .price{margin-top:auto;font-family:var(--display);font-stretch:70%;font-weight:900;font-size:40px;line-height:1}
+  .tier .price small{font-family:var(--body);font-size:15px;font-weight:500;opacity:.75}
+
+  /* flags */
+  .flags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;margin-top:44px}
+  .flagrule{display:grid;grid-template-columns:64px minmax(0,1fr);gap:18px;align-items:start}
+  .flagrule .f{width:64px;height:44px;border:2px solid var(--ink);position:relative}
+  .flagrule .f::after{content:"";position:absolute;left:-6px;top:-4px;bottom:-30px;width:4px;background:var(--ink)}
+  .flagrule h3{font-family:var(--display);font-stretch:80%;font-weight:900;text-transform:uppercase;font-size:21px;line-height:1.1}
+  .flagrule p{font-size:15.5px;color:#3D4466;margin-top:4px}
+
+  footer{background:var(--blue);color:var(--white)}
+  footer .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:32px;padding-block:56px}
+  footer .x{font-size:clamp(30px,3.4vw,48px)}
+  footer h4{font-family:var(--display);font-stretch:62%;font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--yellow);margin-bottom:8px}
+  footer p{color:#DCE3FF;font-size:15.5px}
+
+  @media (max-width:1000px){
+    .hero .wrap{grid-template-columns:minmax(0,1fr)}
+    .big-roundel{justify-self:start;width:min(300px,80%)}
+    .boards{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .tiers,.flags,.menu-grid{grid-template-columns:minmax(0,1fr)}
+    .tier + .tier{border-left:0;border-top:4px solid var(--ink)}
+    .now .bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .now .bar .tag{grid-column:1/-1}
+    footer .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    header.top nav{display:none}
+    .cta{margin-left:auto}
+  }
+  @media (max-width:640px){
+    .entry{grid-template-columns:72px minmax(0,1fr);gap:16px}
+    .date-rd{width:68px;height:68px}
+    .date-rd b{font-size:26px}
+    .entry .meta,.entry a.join{grid-column:2}
+    .entry a.join{justify-self:start}
+    .boards{grid-template-columns:minmax(0,1fr)}
+    .now .bar{grid-template-columns:minmax(0,1fr)}
+    footer .wrap{grid-template-columns:minmax(0,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><span class="rd">12</span><span>Roundel</span></a>
+    <nav><a href="#grid">Race nights</a><a href="#records">Lap records</a><a href="#bar">Bar</a><a href="#parties">Private grids</a></nav>
+    <a class="cta" href="#grid">Get on the grid</a>
+  </div>
+</header>
+<div class="stripe"></div>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="cond" style="font-size:16px;letter-spacing:.2em;color:var(--yellow)">Sim racing club &amp; bar · Columbus, Ohio</div>
+      <h1 class="x" style="margin-top:18px">Twelve rigs.<br>One bar.<br><span>Bring a grid.</span></h1>
+      <p>Wheel-to-wheel racing against the people standing next to you. Walk in for a hot lap, sign up for a race night, or rent the whole room and settle it once and for all.</p>
+      <div class="row">
+        <a class="cta" href="#grid">See this week's races</a>
+        <a class="ghost" href="#parties">Book a private grid →</a>
+      </div>
+    </div>
+    <div class="big-roundel" aria-label="Twelve racing rigs"><b>12</b><small>Rigs · All linked</small></div>
+  </div>
+  <div class="speedlines"></div>
+</div>
+
+<div class="wrap now">
+  <div class="bar">
+    <div class="tag"><span class="cond" style="font-size:20px">On track now</span></div>
+    <div><div class="k">Session</div><div class="v">Open practice</div></div>
+    <div><div class="k">Car / Track</div><div class="v">Mazda MX-5 · Lime Rock</div></div>
+    <div><div class="k">Rigs free</div><div class="v">5 of 12</div></div>
+  </div>
+</div>
+
+<section id="grid" class="wrap">
+  <div class="eyebrow">Entry list · Week of Oct 13</div>
+  <h2 class="x">This week on the grid</h2>
+  <div class="entries">
+    <div class="entry">
+      <div class="date-rd"><div><b>14</b><small>Tue</small></div></div>
+      <div><h3>Spec Miata Sprints</h3><p>Three 12-lap heats, reverse-grid final. Rookies welcome, staff on the steward desk.</p></div>
+      <div class="meta"><b>7:00 PM</b>$25 entry · 12 spots</div>
+      <a class="join" href="#">Join grid</a>
+    </div>
+    <div class="entry">
+      <div class="date-rd"><div><b>16</b><small>Thu</small></div></div>
+      <div><h3>Ladies' Night Hot Laps</h3><p>Time-attack format. Fastest lap of the night wins the bar tab for her table.</p></div>
+      <div class="meta"><b>8:00 PM</b>Free entry · walk in</div>
+      <a class="join" href="#">Save a rig</a>
+    </div>
+    <div class="entry feature">
+      <div class="date-rd"><div><b>18</b><small>Sat</small></div></div>
+      <div><h3>The Roundel 6 Hours</h3><p>Teams of three, GT3 at Spa, live pit stops and driver swaps. Food and the big screen all night.</p></div>
+      <div class="meta"><b>4:00 PM – 10:00 PM</b>$180 per team · 4 teams left</div>
+      <a class="join" href="#">Enter a team</a>
+    </div>
+    <div class="entry">
+      <div class="date-rd"><div><b>19</b><small>Sun</small></div></div>
+      <div><h3>Sunday Kart Cup</h3><p>Rental-kart physics, short tracks, no experience needed. Kids 10+ until 4 PM.</p></div>
+      <div class="meta"><b>12:00 PM</b>$15 per driver</div>
+      <a class="join" href="#">Join grid</a>
+    </div>
+  </div>
+</section>
+
+<section id="records" class="records">
+  <div class="wrap">
+    <div class="eyebrow">Pit board</div>
+    <h2 class="x">House lap records</h2>
+    <p style="color:#9AA3D4;max-width:56ch;margin-top:16px">Beat one on a race night and your name goes on the board above the bar. The record holder drinks free until somebody takes it.</p>
+    <div class="boards">
+      <div class="board"><div class="ln">P1</div><div class="ln y">1:02.4</div><div class="ln">LIME</div><div class="who"><b>Kayla Domínguez</b>MX-5 Cup · Lime Rock</div></div>
+      <div class="board"><div class="ln">P1</div><div class="ln y">2:18.9</div><div class="ln">SPA</div><div class="who"><b>Marcus Hill</b>GT3 · Spa-Francorchamps</div></div>
+      <div class="board"><div class="ln">P1</div><div class="ln y">1:38.7</div><div class="ln">MO</div><div class="who"><b>Priya Shah</b>GT4 · Mid-Ohio</div></div>
+      <div class="board"><div class="ln">P1</div><div class="ln y">0:48.1</div><div class="ln">KART</div><div class="who"><b>Ellis, age 13</b>Rental kart · Club circuit</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="bar" class="wrap">
+  <div class="eyebrow">The bar</div>
+  <h2 class="x">Named after corners</h2>
+  <div class="menu-grid">
+    <div class="menu">
+      <h3>Drinks</h3>
+      <ul>
+        <li><b>Eau Rouge Spritz</b><i></i><span>$11</span><small>Aperol, blood orange, prosecco. Take it flat.</small></li>
+        <li><b>Corkscrew</b><i></i><span>$13</span><small>Rye, sweet vermouth, two dashes of bitters, a long drop.</small></li>
+        <li><b>Parabolica</b><i></i><span>$12</span><small>Gin, Campari, grapefruit. Wide and fast.</small></li>
+        <li><b>Pit Lane Lager</b><i></i><span>$7</span><small>Local Columbus lager on draft. Speed limited.</small></li>
+        <li><b>Designated Driver</b><i></i><span>$5</span><small>Ginger, lime, soda. Free refills if you're driving home.</small></li>
+      </ul>
+    </div>
+    <div class="menu">
+      <h3>Food</h3>
+      <ul>
+        <li><b>Grid Box</b><i></i><span>$16</span><small>Smash burger, fries, pickles. Eaten one-handed between stints.</small></li>
+        <li><b>Gravel Trap Nachos</b><i></i><span>$14</span><small>Built for a table of four. Ask for the chorizo.</small></li>
+        <li><b>Hairpin Wings</b><i></i><span>$13</span><small>Ten wings, dry rub or buffalo, blue cheese on the side.</small></li>
+        <li><b>Endurance Platter</b><i></i><span>$48</span><small>Feeds a 6-hour team. Sliders, wings, pretzel bites, veg.</small></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="parties" class="parties">
+  <div class="wrap">
+    <div class="eyebrow">Private grids</div>
+    <h2 class="x">Rent the room</h2>
+    <p style="max-width:58ch;margin-top:16px;color:#3D4466">Birthdays, team outings, bachelor parties, the office rivalry that needs settling. A race marshal runs the event so nobody has to read a manual.</p>
+    <div class="tiers">
+      <div class="tier"><span class="num">6</span><h3>Half grid</h3><ul><li>6 rigs for 2 hours</li><li>Qualifying + one feature race</li><li>Reserved high-top table</li></ul><div class="price">$420 <small>up to 12 guests</small></div></div>
+      <div class="tier hot"><span class="num">12</span><h3>Full grid</h3><ul><li>All 12 rigs for 3 hours</li><li>Practice, quali, two races, podium</li><li>Results printed for every driver</li><li>Grid Boxes for everyone</li></ul><div class="price">$1,150 <small>up to 30 guests</small></div></div>
+      <div class="tier"><span class="num">24</span><h3>Takeover</h3><ul><li>Whole venue, bar included</li><li>Custom championship, your car + track</li><li>Livery with your logo on every car</li></ul><div class="price">Quote <small>evenings &amp; weekends</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="eyebrow">House rules</div>
+  <h2 class="x">Know your flags</h2>
+  <div class="flags">
+    <div class="flagrule"><div class="f" style="background:var(--blue)"></div><div><h3>Blue flag</h3><p>A faster car is behind you. Hold your line and let them through. It's a race night, not a road block.</p></div></div>
+    <div class="flagrule"><div class="f" style="background:var(--yellow)"></div><div><h3>Yellow flag</h3><p>Someone's off ahead. No passing until you're clear of the incident. The steward is watching the replay.</p></div></div>
+    <div class="flagrule"><div class="f" style="background:repeating-conic-gradient(var(--ink) 0 25%,var(--white) 0 50%) 0 0/16px 16px"></div><div><h3>Chequered</h3><p>Race over. Shake hands, hand the rig back, and buy the winner a drink if you punted them in turn one.</p></div></div>
+  </div>
+</section>
+</main>
+
+<div class="stripe"></div>
+<footer>
+  <div class="wrap">
+    <div><div class="x">Roundel<br>Sim Club</div></div>
+    <div><h4>Find us</h4><p>820 N 4th St<br>Columbus, OH 43215</p></div>
+    <div><h4>Hours</h4><p>Tue–Thu 4 PM–midnight<br>Fri–Sat noon–1 AM<br>Sun noon–9 PM</p></div>
+    <div><h4>Talk to us</h4><p>(614) 555-0172<br>grid@roundel.example<br>21+ after 9 PM</p></div>
+  </div>
+</footer>
+</body>
+</html>
