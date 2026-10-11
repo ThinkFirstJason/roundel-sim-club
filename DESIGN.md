@@ -10,7 +10,7 @@
 ## 1. Core principles
 
 1. **Livery first.** Large solid colour blocks, diagonal cuts between sections and thin tri-colour stripes. Paint on a car, not cards on a page.
-2. **The roundel is the hero shape.** A white circle with a heavy black race number. Use roundels for dates, tier sizes, the logo and the hero. They're the only round elements on the site.
+2. **The roundel is the signature shape.** A white circle with a heavy black race number. Use roundels for dates, tier sizes, the logo, and as a sticker overlapping the hero photo. They're the only round elements on the site.
 3. **Everything else is square.** No border radius anywhere except roundels. Use heavy 3–4px black borders on interactive and tabular elements.
 4. **Expanded italic headlines.** Wide, heavy and slanted forward like lettering on a car door.
 5. **Light, single theme.** The cool off-white sheet plus blue blocks is the identity. Don't make a dark variant.
@@ -47,31 +47,41 @@
 
 - Max width 1400px. Gutter `clamp(16px, 4vw, 56px)`.
 - **Header:** blue, 68px tall. Logo is a white roundel "12" plus "ROUNDEL" in expanded italic. Nav is narrow uppercase. CTA is a yellow block.
-- **Hero:** full-bleed blue with the bottom edge cut on a diagonal (`clip-path: polygon(0 0,100% 0,100% calc(100% - 7vw),0 100%)`). Left: headline and copy. Right: a giant white roundel "12" with a blue gap and red outer ring (`box-shadow: 0 0 0 14px blue, 0 0 0 20px red`). Faint skewed speed-lines run along the cut.
+- **Hero:** full-bleed blue with the bottom edge cut on a diagonal (`clip-path: polygon(0 0,100% 0,100% calc(100% - 7vw),0 100%)`). Left: headline and copy. Right: a 4:3 crowd-around-the-rig photo in a 6px white border, with a white roundel "12" sticker (red ring) overlapping its bottom-left corner.
 - **"On track now" bar:** an ink strip that overlaps the bottom of the hero (negative margin). It starts with a red tag cell, then key/value cells for session, car/track and rigs free.
 - The parties section opens with the opposite diagonal (`polygon(0 5vw,100% 0,…)`) so the sections read like panels on a car body.
 - Section padding `clamp(64px, 9vw, 128px)`.
 
 ## 5. Signature components
 
+- **Venue photo:** a 21:8 full-width photo of the rig row, placed between the section heading and the entry list.
 - **Entry list (events):** like a race entry sheet, with a 4px ink top rule and hairline rows. Columns: a date roundel (day number + weekday, white with a 4px ink border; yellow for the featured event), title in expanded italic with a description, time/price meta, and a square "Join grid" button (3px ink border that inverts on hover).
 - **Pit boards (lap records):** near-black slates `#05081C` with a 6px `#2A3060` frame and a hanger tab on top. Three stacked lines of narrow numerals (P1 / time in yellow / track code), then a dashed divider and the driver's name.
-- **Bar menu:** two columns (Drinks, Food). Each item is an expanded italic name, a dotted leader and the price, with a description on the line below. Items are named after famous corners: Eau Rouge, Corkscrew, Parabolica.
+- **Bar menu:** a 21:7 bartender photo, then two columns (Drinks, Food). Each item is an expanded italic name, a dotted leader and the price, with a description on the line below. Items are named after famous corners: Eau Rouge, Corkscrew, Parabolica.
+- **Party header:** the heading and copy on the left, a 3:2 group photo with a 4px ink border on the right, aligned to the bottom.
 - **Party tiers:** three columns inside one 4px ink frame, divided by 4px rules. Each tier starts with a roundel showing its rig count (6 / 12 / 24). The featured tier is blue with yellow bullets. Bullets are small square red blocks.
 - **Flag rules:** a real flag swatch (blue, yellow, chequered via `repeating-conic-gradient`) on a black pole, with a short rule beside it.
 
-## 6. Motion
+## 6. Photography
+
+- Warm, candid nightlife: groups crowding a rig, people laughing at a table, bartenders mid-pour. Real people having fun, not posed models.
+- One "venue" shot of the linked rigs under coloured light.
+- Photos are square-cornered. The only frames are a thick white border (on blue) or a 4px ink border (on the sheet).
+- Don't put colour overlays or blue duotones on photos. The livery colours go around them, not over them.
+- Source: Unsplash (free licence). Current files: `img/hero.jpg`, `img/venue.jpg`, `img/bar.jpg`, `img/party.jpg`.
+
+## 7. Motion
 
 - Almost none. Colour inverts on hover. The livery does the work.
 - Don't animate on scroll.
 
-## 7. Voice
+## 8. Voice
 
 - Friendly trash talk: "Bring a grid." "Settle it once and for all." "Buy the winner a drink if you punted them in turn one."
 - Use motorsport vocabulary that a newcomer can still follow: grid, quali, stint, reverse-grid, chequered, steward.
 - Inclusive. Make it clear beginners, kids' sessions and ladies' nights are welcome.
 
-## 8. Don'ts
+## 9. Don'ts
 
 - No dark "gamer" look, RGB glow or carbon-fibre textures.
 - No rounded corners except roundels.

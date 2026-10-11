@@ -51,11 +51,16 @@
   .hero p{max-width:44ch;margin-top:26px;font-size:19px;color:#DCE3FF}
   .hero .row{display:flex;gap:16px;flex-wrap:wrap;margin-top:30px;align-items:center}
   .ghost{color:var(--white);font-family:var(--display);font-stretch:70%;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.05em}
-  .big-roundel{aspect-ratio:1;max-width:100%;width:min(440px,100%);justify-self:end;border-radius:50%;background:var(--white);color:var(--ink);display:grid;place-items:center;position:relative;box-shadow:0 0 0 14px var(--blue),0 0 0 20px var(--red)}
-  .big-roundel b{font-family:var(--display);font-weight:900;font-stretch:72%;font-size:clamp(150px,22vw,300px);line-height:1;letter-spacing:-.04em;margin-top:-4%}
-  .big-roundel small{position:absolute;bottom:17%;font-family:var(--display);font-stretch:62%;font-weight:700;letter-spacing:.2em;font-size:clamp(12px,1.4vw,16px);text-transform:uppercase}
-  .speedlines{position:absolute;inset:auto 0 calc(7vw + 18px) 0;height:30px;background:repeating-linear-gradient(90deg,var(--white) 0 70px,transparent 70px 110px);opacity:.14;transform:skewX(-30deg)}
-
+  .hero-photo{position:relative;margin:0;min-width:0}
+  .hero-photo .frame{aspect-ratio:4/3;max-width:100%;overflow:hidden;border:6px solid var(--white)}
+  .hero-photo img{display:block;width:100%;height:100%;object-fit:cover}
+  .hero-photo .sticker{position:absolute;left:-22px;bottom:-22px;width:104px;height:104px;border-radius:50%;background:var(--white);color:var(--ink);display:grid;place-items:center;box-shadow:0 0 0 5px var(--red);font-family:var(--display);font-weight:900;font-stretch:72%;font-size:54px;line-height:1}
+  .photo{margin:0;overflow:hidden;max-width:100%}
+  .photo img{display:block;width:100%;height:100%;object-fit:cover}
+  .venue{aspect-ratio:21/8;margin-top:44px}
+  .bar-photo{aspect-ratio:21/7;margin-top:44px}
+  .party-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+  .party-row .photo{aspect-ratio:3/2;border:4px solid var(--ink)}
   /* now racing strip */
   .now{margin-top:-46px;position:relative;z-index:2}
   .now .bar{background:var(--ink);color:var(--white);display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:stretch}
@@ -136,7 +141,8 @@
 
   @media (max-width:1000px){
     .hero .wrap{grid-template-columns:minmax(0,1fr)}
-    .big-roundel{justify-self:start;width:min(300px,80%)}
+    .hero-photo{margin-left:22px}
+    .party-row{grid-template-columns:minmax(0,1fr)}
     .boards{grid-template-columns:repeat(2,minmax(0,1fr))}
     .tiers,.flags,.menu-grid{grid-template-columns:minmax(0,1fr)}
     .tier + .tier{border-left:0;border-top:4px solid var(--ink)}
@@ -181,9 +187,11 @@
         <a class="ghost" href="#parties">Book a private grid →</a>
       </div>
     </div>
-    <div class="big-roundel" aria-label="Twelve racing rigs"><b>12</b><small>Rigs · All linked</small></div>
+    <figure class="hero-photo">
+      <div class="frame"><img src="img/hero.jpg" alt="A group crowding around a racing simulator, one person driving" width="1800" height="1201"></div>
+      <span class="sticker" aria-hidden="true">12</span>
+    </figure>
   </div>
-  <div class="speedlines"></div>
 </div>
 
 <div class="wrap now">
@@ -198,6 +206,7 @@
 <section id="grid" class="wrap">
   <div class="eyebrow">Entry list · Week of Oct 13</div>
   <h2 class="x">This week on the grid</h2>
+  <figure class="photo venue"><img src="img/venue.jpg" alt="Row of linked racing simulators with curved screens under neon lighting" width="1800" height="1200"></figure>
   <div class="entries">
     <div class="entry">
       <div class="date-rd"><div><b>14</b><small>Tue</small></div></div>
@@ -243,6 +252,7 @@
 <section id="bar" class="wrap">
   <div class="eyebrow">The bar</div>
   <h2 class="x">Named after corners</h2>
+  <figure class="photo bar-photo"><img src="img/bar.jpg" alt="Bartender pouring a drink at the bar" width="1800" height="1200"></figure>
   <div class="menu-grid">
     <div class="menu">
       <h3>Drinks</h3>
@@ -269,8 +279,13 @@
 <section id="parties" class="parties">
   <div class="wrap">
     <div class="eyebrow">Private grids</div>
-    <h2 class="x">Rent the room</h2>
-    <p style="max-width:58ch;margin-top:16px;color:#3D4466">Birthdays, team outings, bachelor parties, the office rivalry that needs settling. A race marshal runs the event so nobody has to read a manual.</p>
+    <div class="party-row">
+      <div>
+        <h2 class="x">Rent the room</h2>
+        <p style="max-width:58ch;margin-top:16px;color:#3D4466">Birthdays, team outings, bachelor parties, the office rivalry that needs settling. A race marshal runs the event so nobody has to read a manual.</p>
+      </div>
+      <figure class="photo"><img src="img/party.jpg" alt="Friends laughing around a table with drinks and food" width="1800" height="1200"></figure>
+    </div>
     <div class="tiers">
       <div class="tier"><span class="num">6</span><h3>Half grid</h3><ul><li>6 rigs for 2 hours</li><li>Qualifying + one feature race</li><li>Reserved high-top table</li></ul><div class="price">$420 <small>up to 12 guests</small></div></div>
       <div class="tier hot"><span class="num">12</span><h3>Full grid</h3><ul><li>All 12 rigs for 3 hours</li><li>Practice, quali, two races, podium</li><li>Results printed for every driver</li><li>Grid Boxes for everyone</li></ul><div class="price">$1,150 <small>up to 30 guests</small></div></div>
